@@ -1,81 +1,81 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const bcrypt = require('bcrypt');
+const fs = require('fs');
 const path = require('path');
 const app = express();
-const PORT = 3000;
+const port = 3000;
 
-// Gunakan body-parser untuk menangani data dari form
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true })); // Untuk form HTML
+// Middleware untuk meng-handle JSON request body
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Sajikan file index.html dari direktori inti (mardiyanaweb)
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'index.html')); // Mengarah ke index.html di direktori inti
-});
+// Middleware untuk meng-handle file statis (HTML, CSS, JS)
+app.use(express.static(path.join(__dirname, '../'))); // Ini akan memungkinkan file HTML diakses dari direktori root
 
-// Route untuk menyajikan halaman register
-app.get('/register', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'register', 'register.html'));
-});
+// Lokasi file untuk menyimpan data pengguna
+const USERS_FILE = path.join(__dirname, 'users.json');
 
-// Route untuk menyajikan halaman login
-app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'login', 'login.html'));
-});
+// Fungsi untuk membaca data pengguna dari file
+function readUsers() {
+  if (fs.existsSync(USERS_FILE)) {
+    const data = fs.readFileSync(USERS_FILE);
+    return JSON.parse(data);
+  }
+  return [];
+}
 
-// Route untuk register (POST request)
-app.post('/register', async (req, res) => {
+// Fungsi untuk menyimpan data pengguna ke file
+function saveUsers(users) {
+  fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
+}
+
+// Endpoint untuk registrasi dengan metode POST
+app.post('/register', (req, res) => {
   const { username, password } = req.body;
 
-  // Simpan data user di memori sementara (bisa diubah menjadi database)
-  let users = [];
-
-  // Cek apakah username sudah ada
-  const userExists = users.find(user => user.username === username);
-  if (userExists) {
-    return res.status(400).json({ message: 'Username sudah digunakan!' });
+  // Validasi input
+  if (!username || !password) {
+    return res.status(400).json({ message: 'Email dan password wajib diisi!' });
   }
 
-  // Hash password sebelum menyimpan
-  const hashedPassword = await bcrypt.hash(password, 10);
+  // Baca data pengguna yang sudah ada
+  let users = readUsers();
 
-  // Simpan user baru
-  users.push({ username, password: hashedPassword });
-  res.status(201).json({ message: 'Registrasi berhasil!' });
+  // Cek apakah email sudah terdaftar
+  const existingUser = users.find(user => user.username === username);
+  if (existingUser) {
+    return res.status(400).json({ message: 'Email sudah digunakan!' });
+  }
+
+  // Tambahkan pengguna baru
+  users.push({ username, password });
+  saveUsers(users);
+
+  // Kirim respon sukses sebagai JSON
+  return res.json({ message: 'Registrasi berhasil!' });
 });
 
-// Route untuk login
-app.post('/login', async (req, res) => {
+// Endpoint untuk login
+app.post('/login', (req, res) => {
   const { username, password } = req.body;
 
-  // Simpan data user di memori sementara (bisa diubah menjadi database)
-  let users = [];
-
-  // Cari user di array
-  const user = users.find(user => user.username === username);
-
-  if (!user) {
-    return res.status(400).json({ message: 'Username atau password salah!' });
+  // Validasi input
+  if (!username || !password) {
+    return res.status(400).json({ message: 'Email dan password wajib diisi!' });
   }
 
-  // Bandingkan password yang di-hash
-  const isPasswordMatch = await bcrypt.compare(password, user.password);
+  // Baca data pengguna yang tersimpan
+  let users = readUsers();
 
-  if (isPasswordMatch) {
-    // Jika login berhasil, redirect ke halaman seller
-    res.redirect('/seller');
+  // Cek apakah email dan password cocok
+  const user = users.find(user => user.username === username && user.password === password);
+  if (user) {
+    res.json({ message: 'Login berhasil!' });
   } else {
-    res.status(400).json({ message: 'Username atau password salah!' });
+    res.status(401).json({ message: 'Email atau password salah!' });
   }
 });
 
-// Route untuk halaman seller
-app.get('/seller', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'seller', 'seller.html'));
-});
-
-// Jalankan server
-app.listen(PORT, () => {
-  console.log(`Server berjalan di http://localhost:${PORT}`);
+// Jalankan server di port yang ditentukan
+app.listen(port, () => {
+  console.log(`Server berjalan di http://localhost:${port}`);
 });
