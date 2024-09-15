@@ -1,5 +1,4 @@
 const express = require('express');
-const fs = require('fs');
 const path = require('path');
 const app = express();
 const port = 3000;
@@ -11,22 +10,8 @@ app.use(express.urlencoded({ extended: true }));
 // Middleware untuk meng-handle file statis (HTML, CSS, JS)
 app.use(express.static(path.join(__dirname, '../'))); // Ini akan memungkinkan file HTML diakses dari direktori root
 
-// Lokasi file untuk menyimpan data pengguna
-const USERS_FILE = path.join(__dirname, 'users.json');
-
-// Fungsi untuk membaca data pengguna dari file
-function readUsers() {
-  if (fs.existsSync(USERS_FILE)) {
-    const data = fs.readFileSync(USERS_FILE);
-    return JSON.parse(data);
-  }
-  return [];
-}
-
-// Fungsi untuk menyimpan data pengguna ke file
-function saveUsers(users) {
-  fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
-}
+// Penyimpanan data pengguna di memori
+let users = [];
 
 // Endpoint untuk registrasi dengan metode POST
 app.post('/register', (req, res) => {
@@ -37,18 +22,14 @@ app.post('/register', (req, res) => {
     return res.status(400).json({ message: 'Email dan password wajib diisi!' });
   }
 
-  // Baca data pengguna yang sudah ada
-  let users = readUsers();
-
   // Cek apakah email sudah terdaftar
   const existingUser = users.find(user => user.username === username);
   if (existingUser) {
-    return res.status(400).json({ message: 'Email sudah digunakan!' });
+    return res.status(400).json({ message: 'Email sudah ada!' });
   }
 
-  // Tambahkan pengguna baru
+  // Tambahkan pengguna baru ke penyimpanan memori
   users.push({ username, password });
-  saveUsers(users);
 
   // Kirim respon sukses sebagai JSON
   return res.json({ message: 'Registrasi berhasil!' });
@@ -63,17 +44,35 @@ app.post('/login', (req, res) => {
     return res.status(400).json({ message: 'Email dan password wajib diisi!' });
   }
 
-  // Baca data pengguna yang tersimpan
-  let users = readUsers();
-
   // Cek apakah email dan password cocok
   const user = users.find(user => user.username === username && user.password === password);
   if (user) {
     res.json({ message: 'Login berhasil!' });
   } else {
-    res.status(401).json({ message: 'Email atau password salah!' });
+    res.status(401).json({ message: 'Email tidak terdaftar atau password salah!' });
   }
 });
+
+// Endpoint untuk reset password
+app.post('/reset-password', (req, res) => {
+  const { email, newPassword } = req.body;
+
+  // Validasi input
+  if (!email || !newPassword) {
+    return res.status(400).json({ message: 'Email dan password baru wajib diisi!' });
+  }
+
+  // Cek apakah email terdaftar
+  const user = users.find(user => user.username === email);
+  if (!user) {
+    return res.status(404).json({ message: 'Email tidak terdaftar!' });
+  }
+
+  // Update password pengguna
+  user.password = newPassword;
+  res.json({ message: 'Password berhasil di-reset!' });
+});
+
 
 // Jalankan server di port yang ditentukan
 app.listen(port, () => {

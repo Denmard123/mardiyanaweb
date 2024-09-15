@@ -1,3 +1,12 @@
+// Menetapkan CSS untuk Toastify secara dinamis
+const style = document.createElement('style');
+style.textContent = `
+  .toastify {
+    z-index: 9999 !important;
+  }
+`;
+document.head.appendChild(style);
+
 document.querySelector("#registerForm").addEventListener("submit", function(event) {
   event.preventDefault(); // Mencegah form submit secara default
 
