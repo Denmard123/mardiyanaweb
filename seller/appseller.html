@@ -7,6 +7,7 @@
     <title>Mardiyana Web</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.3/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/src/seller/app.js"></script>
   </head>
   <body>
     <div class="w-[1440px] h-[1024px] relative bg-slate-100 shadow">
@@ -205,89 +206,64 @@
           </svg>
         </div>
         
-        <div class="left-[83px] top-[150px] absolute bg-white rounded-[10px] flex-col justify-start items-start gap-2.5 inline-flex">
-          <div class="w-[333px] h-[350px] bg-slate-100 rounded-[20px]">
-            <div class="flex-col justify-start items-start flex">
-              <div id="default-carousel" class="relative w-full bg-base-200" data-carousel="slide">
-                <!-- Carousel wrapper -->
-                <div class="relative h-40 overflow-hidden rounded-lg">
-                     <!-- Item 1 -->
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="/img/app/card/Screenshot (11).png" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-                    </div>
-                    <!-- Item 2 -->
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="/img/app/card/Screenshot (13).png" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-                    </div>
-                    <!-- Item 3 -->
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="/img/app/card/Screenshot (12).png" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-                    </div>
-                    <!-- Item 4 -->
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="/img/app/card/Screenshot (12).png" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-                    </div>
-                </div>
-                <!-- Slider indicators -->
-                <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
-                    <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
-                    <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
-                    <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
-                    <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 4" data-carousel-slide-to="3"></button>
-                    <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 5" data-carousel-slide-to="4"></button>
-                </div>
-                <!-- Slider controls -->
-                <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
-                    <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                        <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-                        </svg>
-                        <span class="sr-only">Previous</span>
-                    </span>
-                </button>
-                <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
-                    <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                        <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                        </svg>
-                        <span class="sr-only">Next</span>
-                    </span>
-                </button>
+        <div class="container mx-auto p-5">  
+          <!-- Toast container -->
+          <div id="toastContainer" class="fixed top-0 right-0 m-4 z-50"></div>     
+          
+          <!-- Content Container -->
+          <div id="contentContainer" class="grid grid-cols-1 gap-4">
+              <!-- Existing Content -->
+              <div class="content-item bg-white rounded-lg shadow-md p-4 mb-4 relative z-10">
+                  <div class="w-[333px] h-[350px] bg-slate-100 rounded-[20px]">
+                      <div class="flex-col justify-start items-start flex">
+                          <div class="relative w-full bg-base-200" data-carousel="slide">
+                              <!-- Carousel wrapper -->
+                              <div class="relative h-40 overflow-hidden rounded-lg">
+                                  <!-- Item 1 -->
+                                  <div class="duration-700 ease-in-out z-50" data-carousel-item>
+                                      <img src="/img/app/card/Screenshot (11).png" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                                  </div>
+                                  <!-- You can add more items here if needed -->
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="text-black py-1 text-sm font-normal leading-tight tracking-tight" id="description1">
+                      As a developer, I find myself most <br />captivated by the power and flexibility of <br />Express.js.
+                  </div>
+                  <button class="btn btn-outline btn-success" onclick="editContent(this)">Edit</button>
+                  <button class="btn btn-outline btn-danger" onclick="deleteContent(this)">Hapus</button>
               </div>
-            </div>
-            <div class="text-black py-1 text-sm font-normal leading-tight tracking-tight">
-                As a developer, I find myself most <br />captivated by the power and flexibility of <br />Express.js. I'm always eager to dive into new<br />projects that leverage Express.js and <br />discover innovative ways to create fast,
-                <br />scalable, and user-friendly applications.
-              </div>
-              <button class="btn btn-outline btn-success">Edit Link</button>
-              <button class="btn btn-outline btn-success">Edit</button>
-              <button class="btn btn-outline btn-success">Hapus</button>          </div>
-        </div>
-        <div class="left-[443px] top-[150px] absolute flex-col justify-start items-start gap-2.5 inline-flex">
+              
+              <!-- Button to add new content -->
+              <button class="btn btn-primary mx-[20px] z-50 relative" id="addContentBtn">Tambah Konten</button>
+          </div>              
+      </div>
+        <!-- <div class="left-[443px] top-[150px] absolute flex-col justify-start items-start gap-2.5 inline-flex">
           <div class="w-[333px] h-[350px] bg-slate-100 rounded-[20px]">
             <div class="flex-col justify-start items-start flex">
                 <div id="default-carousel" class="relative w-full bg-base-200" data-carousel="slide">
                   <!-- Carousel wrapper -->
-                  <div class="relative h-40 overflow-hidden rounded-lg">
-                       <!-- Item 1 -->
+                  <!-- <div class="relative h-40 overflow-hidden rounded-lg"> -->
+                       <!-- Item 1 --
                       <div class="hidden duration-700 ease-in-out" data-carousel-item>
                           <img src="/img/app/fire/Screenshot (14).png" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
                       </div>
-                      <!-- Item 2 -->
+                      <!-- Item 2 --
                       <div class="hidden duration-700 ease-in-out" data-carousel-item>
                           <img src="/img/app/fire/Screenshot (15).png" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
                       </div>
-                      <!-- Item 3 -->
+                      <!-- Item 3 --
                       <div class="hidden duration-700 ease-in-out" data-carousel-item>
                           <img src="/img/app/fire/Screenshot (16).png" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
                       </div>
-                      <!-- Item 4 -->
+                      <!-- Item 4 --
                       <div class="hidden duration-700 ease-in-out" data-carousel-item>
                           <img src="/img/app/fire/Screenshot (17).png" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
                       </div>
                      
                   </div>
-                  <!-- Slider indicators -->
+                  <!-- Slider indicators --
                   <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
                       <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
                       <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
@@ -295,7 +271,7 @@
                       <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 4" data-carousel-slide-to="3"></button>
                       <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 5" data-carousel-slide-to="4"></button>
                   </div>
-                  <!-- Slider controls -->
+                  <!-- Slider controls --
                   <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
                       <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
                           <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
@@ -322,7 +298,7 @@
                 <button class="btn btn-outline btn-success">Edit</button>
                 <button class="btn btn-outline btn-success">Hapus</button>           
           </div>
-        </div>
+        </div> -->
         <!-- <div class="left-[250px] top-[509px] absolute flex-col justify-start items-start gap-2.5 inline-flex">
           <div class="w-[333px] h-[169px] bg-orange-100 rounded-[20px]">
             <div class="p-3 flex-col justify-start items-start flex">
@@ -438,7 +414,8 @@
               <div class="w-20 h-20 bg-slate-200 rounded-[20px]">
                 <div class="flex-col justify-center p-[20px] items-center inline-flex">
                   <div class="w-6 h-6 relative">
-                    <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                    <?xml version="1.0" encoding="utf-8"?>
+                     <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
                     <svg width="25px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 16C13.6569 16 15 14.6569 15 13C15 11.3431 13.6569 10 12 10C10.3431 10 9 11.3431 9 13C9 14.6569 10.3431 16 12 16Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M3 16.8V9.2C3 8.0799 3 7.51984 3.21799 7.09202C3.40973 6.71569 3.71569 6.40973 4.09202 6.21799C4.51984 6 5.0799 6 6.2 6H7.25464C7.37758 6 7.43905 6 7.49576 5.9935C7.79166 5.95961 8.05705 5.79559 8.21969 5.54609C8.25086 5.49827 8.27836 5.44328 8.33333 5.33333C8.44329 5.11342 8.49827 5.00346 8.56062 4.90782C8.8859 4.40882 9.41668 4.08078 10.0085 4.01299C10.1219 4 10.2448 4 10.4907 4H13.5093C13.7552 4 13.8781 4 13.9915 4.01299C14.5833 4.08078 15.1141 4.40882 15.4394 4.90782C15.5017 5.00345 15.5567 5.11345 15.6667 5.33333C15.7216 5.44329 15.7491 5.49827 15.7803 5.54609C15.943 5.79559 16.2083 5.95961 16.5042 5.9935C16.561 6 16.6224 6 16.7454 6H17.8C18.9201 6 19.4802 6 19.908 6.21799C20.2843 6.40973 20.5903 6.71569 20.782 7.09202C21 7.51984 21 8.0799 21 9.2V16.8C21 17.9201 21 18.4802 20.782 18.908C20.5903 19.2843 20.2843 19.5903 19.908 19.782C19.4802 20 18.9201 20 17.8 20H6.2C5.0799 20 4.51984 20 4.09202 19.782C3.71569 19.5903 3.40973 19.2843 3.21799 18.908C3 18.4802 3 17.9201 3 16.8Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -448,12 +425,12 @@
                 </div>
               </div>
             </div>
-            <div class="justify-start items-start gap-2.5 flex">
+            <!-- <div class="justify-start items-start gap-2.5 flex">
               <div class="w-20 h-20 bg-amber-500 rounded-[20px]">
                 <div class="flex-col justify-center p-[20px] items-center inline-flex">
                   <div class="w-6 h-6 relative">
                     <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-                    <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                    <!- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools --
                     <svg width="25px" height="24px" viewBox="0 0 25 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         
                         <title>plus_circle [#1441]</title>
@@ -475,7 +452,7 @@
                   <div class="text-white text-xs font-semibold leading-tight">Fitur</div>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -483,5 +460,8 @@
       </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+     <!-- Tailwind CSS CDN -->
+     <script src="https://cdn.jsdelivr.net/npm/tailwindcss@3.2.4/dist/tailwind.min.js"></script>
+   
   </body>
 </html>
