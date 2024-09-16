@@ -40,23 +40,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Function to delete content
-    window.deleteContent = function(button) {
-        const contentItem = button.closest('.content-item');
-        const description = contentItem.querySelector('[id^="description"]');
-        const carouselItems = contentItem.querySelectorAll('[data-carousel-item]');
+window.deleteContent = function(button) {
+    const contentItem = button.closest('.content-item');
+    contentItem.remove();  // Remove the entire content item
+    showToast('Content removed successfully.');
+}
 
-        description.innerHTML = '';
-        showToast('Description cleared.');
-
-        carouselItems.forEach(item => {
-            const img = item.querySelector('img');
-            if (img) {
-                img.src = '';  // Clear image source
-            }
-        });
-
-        showToast('Images cleared.');
-    }
 
     // Function to add new content
     addContentBtn.addEventListener('click', function() {

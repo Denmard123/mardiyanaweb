@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <div class="container mx-auto p-6">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Select Payment Method</h1>
+        <form>
+            <!-- Payment Method Selection -->
+            <div class="mb-6">
+                <label class="block text-lg font-medium text-gray-700 mb-2">Choose Payment Method:</label>
+                <div class="flex gap-6">
+                    <label class="flex items-center space-x-2">
+                        <input type="radio" name="paymentMethod" value="paypal" class="form-radio h-5 w-5 text-indigo-600">
+                        <span class="text-gray-700">PayPal</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                        <input type="radio" name="paymentMethod" value="eWallet" class="form-radio h-5 w-5 text-indigo-600">
+                        <span class="text-gray-700">E-Wallet</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                        <input type="radio" name="paymentMethod" value="atm" class="form-radio h-5 w-5 text-indigo-600">
+                        <span class="text-gray-700">ATM</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- E-Wallet Providers -->
+            <div id="eWalletDetails" class="hidden mb-6">
+                <label class="block text-lg font-medium text-gray-700 mb-2">Choose E-Wallet Provider:</label>
+                <select id="eWalletProvider" class="p-3 border border-gray-300 rounded-lg shadow-sm w-full">
+                    <option value="ovo">OVO</option>
+                    <option value="gopay">GoPay</option>
+                    <option value="dana">DANA</option>
+                </select>
+                <!-- E-Wallet Barcode -->
+                <div class="mt-4">
+                    <p id="eWalletBarcodeText" class="font-medium text-gray-800"></p>
+                    <svg id="eWalletBarcode" class="w-full mt-2"></svg>
+                </div>
+            </div>
+
+            <!-- ATM Bank Selection -->
+            <div id="atmDetails" class="hidden mb-6">
+                <label class="block text-lg font-medium text-gray-700 mb-2">Choose Bank:</label>
+                <select id="bankName" class="p-3 border border-gray-300 rounded-lg shadow-sm w-full">
+                    <option value="bca">BCA</option>
+                    <option value="bni">BNI</option>
+                    <option value="bri">BRI</option>
+                    <option value="mandiri">Mandiri</option>
+                </select>
+                <!-- ATM Account and Barcode -->
+                <div class="mt-4">
+                    <p id="atmAccountText" class="font-medium text-gray-800"></p>
+                    <svg id="atmBarcode" class="w-full mt-2"></svg>
+                </div>
+            </div>
+
+            <!-- PayPal Form -->
+            <div id="paypalForm" class="hidden mb-6">
+                <p class="font-medium text-gray-800">Pay with PayPal:</p>
+                <p class="text-gray-700">PayPal Account: <span class="font-bold text-indigo-600">example@paypal.com</span></p>
+            </div>
+
+            <!-- Toast Container -->
+            <div id="toastContainer" class="fixed top-5 right-5 z-50"></div>
+
+            <!-- Purchase Button -->
+            <button id="buyBtn" type="button"
+                class="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg shadow-lg hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                Purchase
+            </button>
+        </form>
+    </div>
+
+    <script src="/src/buyer/purchase.js"></script>
+</body>
+
+</html>
