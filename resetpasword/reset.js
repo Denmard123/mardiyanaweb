@@ -51,7 +51,7 @@ document.querySelector("#resetPasswordForm").addEventListener("submit", function
     })
     .catch(error => {
       Toastify({
-        text: "Failed to connect to server: " + error.message,
+        text: error.message,
         duration: 3000,
         close: true,
         gravity: "top",

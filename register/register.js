@@ -58,7 +58,7 @@ document.querySelector("#registerForm").addEventListener("submit", function(even
   })
   .catch(error => {
     Toastify({
-      text: "Gagal terhubung ke server: " + error.message,
+      text: error.message,
       duration: 3000,
       close: true,
       gravity: "top",

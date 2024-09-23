@@ -57,7 +57,7 @@ document.querySelector("#loginForm").addEventListener("submit", function(event) 
       }).showToast();
     } else {
       Toastify({
-        text: "Gagal terhubung ke server: " + error.message,
+        text: error.message,
         duration: 3000,
         close: true,
         gravity: "top",
