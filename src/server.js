@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
 const fs = require('fs');
+const cors = require('cors');
 
 const app = express();
 const port = 3000;
@@ -12,6 +13,11 @@ const JWT_SECRET = process.env.JWT_SECRET || 'Den-mardiyana-saputra';
 // Path untuk file penyimpanan pengguna
 const usersFilePath = path.join(__dirname, 'users.json');
 
+app.use(cors({
+  origin: 'https://mardiyanaweb.vercel.app', // Izinkan hanya dari domain ini
+  methods: ['GET', 'POST'],
+  credentials: true,
+}));
 // Middleware untuk meng-handle JSON request body
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

@@ -27,7 +27,7 @@ document.querySelector("#registerForm").addEventListener("submit", function(even
   }
 
   // Mengirim data register ke server menggunakan Fetch API
-  fetch('http://localhost:3000/register', { // Ubah ke endpoint yang sesuai
+  fetch('/register', { // Ubah ke endpoint yang sesuai
     method: "POST",
     headers: {
       "Content-Type": "application/json"
