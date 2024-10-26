@@ -21,13 +21,13 @@ document.querySelector("#registerForm").addEventListener("submit", function(even
       close: true,
       gravity: "top",
       position: "right",
-      backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+      background: "linear-gradient(to right, #ff5f6d, #ffc371)",
     }).showToast();
     return;
   }
 
   // Mengirim data register ke server menggunakan Fetch API
-  fetch('/api/register', { // Ubah ke endpoint yang sesuai
+  fetch('/register', { // Ubah ke endpoint yang sesuai
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -54,7 +54,7 @@ document.querySelector("#registerForm").addEventListener("submit", function(even
         close: true,
         gravity: "top", 
         position: "right", 
-        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+        background: "linear-gradient(to right, #00b09b, #96c93d)",
       }).showToast();
 
       setTimeout(() => {
@@ -67,7 +67,7 @@ document.querySelector("#registerForm").addEventListener("submit", function(even
         close: true,
         gravity: "top",
         position: "right",
-        backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)", 
+        background: "linear-gradient(to right, #ff5f6d, #ffc371)", 
       }).showToast();
     }
   })
@@ -78,7 +78,7 @@ document.querySelector("#registerForm").addEventListener("submit", function(even
       close: true,
       gravity: "top",
       position: "right",
-      backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+      background: "linear-gradient(to right, #ff5f6d, #ffc371)",
     }).showToast();
     console.error("Error:", error);
   });
