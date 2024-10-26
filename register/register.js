@@ -27,7 +27,7 @@ document.querySelector("#registerForm").addEventListener("submit", function(even
   }
 
   // Mengirim data register ke server menggunakan Fetch API
-  fetch('https://mardiyanaweb.vercel.app/register', { // Ubah ke endpoint yang sesuai
+  fetch('https://mardiyanaweb.vercel.app/register/register.html', { // Ubah ke endpoint yang sesuai
     method: "POST",
     headers: {
       "Content-Type": "application/json"
