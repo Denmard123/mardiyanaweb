@@ -13,8 +13,21 @@ document.querySelector("#registerForm").addEventListener("submit", function(even
   const email = document.querySelector("#email").value;
   const password = document.querySelector("#password").value;
 
+  // Validasi input
+  if (!email || !password) {
+    Toastify({
+      text: "Email dan password harus diisi!",
+      duration: 3000,
+      close: true,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+    }).showToast();
+    return;
+  }
+
   // Mengirim data register ke server menggunakan Fetch API
-  fetch(`${window.location.origin}/register`, { // Menggunakan URL absolut
+  fetch('/api/register', { // Ubah ke endpoint yang sesuai
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -25,9 +38,10 @@ document.querySelector("#registerForm").addEventListener("submit", function(even
     })
   })
   .then(response => {
+    // Cek apakah respons tidak ok
     if (!response.ok) {
-      return response.json().then(data => {
-        throw new Error(data.message || 'Gagal mendaftar');
+      return response.text().then(text => {
+        throw new Error(text || 'Gagal mendaftar');
       });
     }
     return response.json(); // Parsing JSON dari response
@@ -59,7 +73,7 @@ document.querySelector("#registerForm").addEventListener("submit", function(even
   })
   .catch(error => {
     Toastify({
-      text: error.message,
+      text: error.message || "Terjadi kesalahan saat menghubungi server.",
       duration: 3000,
       close: true,
       gravity: "top",
