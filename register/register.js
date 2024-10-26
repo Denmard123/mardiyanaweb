@@ -26,7 +26,9 @@ document.querySelector("#registerForm").addEventListener("submit", function(even
   })
   .then(response => {
     if (!response.ok) {
-      throw new Error('Gagal mendaftar: ' + response.statusText);
+      return response.json().then(data => {
+        throw new Error(data.message || 'Gagal mendaftar');
+      });
     }
     return response.json(); // Parsing JSON dari response
   })
@@ -42,9 +44,8 @@ document.querySelector("#registerForm").addEventListener("submit", function(even
       }).showToast();
 
       setTimeout(() => {
-        window.location.href = "/login/login.html";
+        window.location.href = "/login/login.html"; // Ganti ke halaman login
       }, 3000);
-
     } else {
       Toastify({
         text: data.message || "Terjadi kesalahan, coba lagi!",
