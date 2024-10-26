@@ -14,7 +14,7 @@ document.querySelector("#registerForm").addEventListener("submit", function(even
   const password = document.querySelector("#password").value;
 
   // Mengirim data register ke server menggunakan Fetch API
-  fetch("/register", {
+  fetch(`${window.location.origin}/register`, { // Menggunakan URL absolut
     method: "POST",
     headers: {
       "Content-Type": "application/json"
